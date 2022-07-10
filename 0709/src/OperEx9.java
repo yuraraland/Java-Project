@@ -11,6 +11,8 @@ public class OperEx9 {
 		
 		System.out.println(a+","+b);
 		System.out.println("변수 c의 값: " + c);
+		
+
 
 	}
 

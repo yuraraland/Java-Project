@@ -91,7 +91,7 @@ public class VenechiaFrame extends JFrame {
 		input.setFont(new Font("serif", Font.BOLD, 20));
 		south_p.add(ok_bt = new JButton("확인"));
 		
-		this.add(north_p, BorderLayout.SOUTH);
+		this.add(south_p, BorderLayout.SOUTH);
 		
 		this.add(center_p);
 		

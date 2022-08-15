@@ -6,13 +6,6 @@ public class Ranking implements Serializable {
 	int score;
 	String date;
 	
-	public Ranking(String name, int score, String date) {
-		
-		this.userName = name;
-		this.score = score;
-		this.date = date;
-		
-	}
 
 	public String getUserName() {
 		return userName;
@@ -34,7 +27,7 @@ public class Ranking implements Serializable {
 		return date;
 	};
 	
-	public void setDate() {
+	public void setDate(String date) {
 		this.date = date;
 	};
  	

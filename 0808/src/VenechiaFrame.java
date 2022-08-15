@@ -23,6 +23,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,7 +40,7 @@ public class VenechiaFrame extends JFrame {
    
    JPanel cards;
    CardLayout cl;
-   JPanel p1, south_p, south_p2;
+   JPanel p1, south_p, south_p2, cen_p;
    JButton go_bt;
    JTextField id_tf;
    
@@ -52,7 +53,7 @@ public class VenechiaFrame extends JFrame {
    JMenu file_m;
    JMenuItem rank_item, exit_item;
    Boolean start_status;
-   String path = "c:/javatest";
+   String path = "/Users/yura/eclipse-workspace/rank.obj";
    
    int score;
    String[] ar = {"사과", "딸기", "포도", "바나나", "원숭이", "호랑이",
@@ -67,14 +68,30 @@ public class VenechiaFrame extends JFrame {
       
    //p1셋팅 
    p1 = new JPanel(new BorderLayout());
+   cen_p = new JPanel() {
+
+	@Override
+	public void paint(Graphics g) {
+		
+		Image img = new ImageIcon("/Users/yura/eclipse-workspace/venechia.jpeg").getImage();
+		g.drawImage(img, 0, 0, cen_p.getWidth(), cen_p.getHeight(), this);
+	}
+	 
+	   
+	   
+   };
+   
    south_p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
    south_p.add(new JLabel("NAME"));
    south_p.add(id_tf = new JTextField(10));
    south_p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
    south_p2.add(go_bt = new JButton("입장"));
+   south_p.setBackground(Color.white);
+   south_p2.setBackground(Color.white);
    JPanel subp = new JPanel(new GridLayout(2, 1));
    subp.add(south_p);
    subp.add(south_p2);
+   p1.add(cen_p, BorderLayout.CENTER);
    p1.add(subp, BorderLayout.SOUTH);
 
    //p1셋팅 끝
@@ -346,9 +363,15 @@ public class VenechiaFrame extends JFrame {
 			   //index값이 여전히 -1을 유지하고 있다면 내 점수를 저장하지 않아도 된다.
 			   if (index != -1) {
 				   
+				   Ranking rank = new Ranking();
+				   
 				   Date now = new Date(System.currentTimeMillis());
 				   String date = now.toString();
-				   Ranking rank = new Ranking(userName, score, date);
+				   
+				  
+				   rank.setUserName(userName);
+				   rank.setScore(score);
+				   rank.setDate(date);
 				   //저장된 인원이 5명 이상일 때만 마지막 저장된 것을 삭제한다.
 				   
 				   if(list.size() >= 5)
@@ -361,12 +384,12 @@ public class VenechiaFrame extends JFrame {
 			   }
 			   
 		   }
-		   	}//if문의 끝!
+		}//if문의 끝!
 		   	else { // 처음 할 때 딱 한 번 수행!
 		   		
 				   Date now = new Date(System.currentTimeMillis());
 				   String date = now.toString();
-				   Ranking rank = new Ranking(userName, score, date);
+				   Ranking rank = new Ranking();
 				   ArrayList list = new ArrayList<Ranking>();
 				   list.add(rank);
 				   
@@ -376,7 +399,7 @@ public class VenechiaFrame extends JFrame {
 		   	}
 		   
 	} catch (Exception e) {
-		// TODO: handle exception
+		e.printStackTrace();
 	}
 	   
    }

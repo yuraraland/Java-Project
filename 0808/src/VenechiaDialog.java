@@ -17,7 +17,7 @@ public class VenechiaDialog extends JDialog {
 	VenechiaFrame parent;
 	
 	JPanel center_p, p1, p2, p3, p4, p5;
-	String path = "c:/javatest";
+	String path = "/Users/yura/eclipse-workspace/rank.obj";
 	
 	public VenechiaDialog(VenechiaFrame parent) {
 		
@@ -40,6 +40,9 @@ public class VenechiaDialog extends JDialog {
 		
 		this.setBounds(150, 200, 200, 300);
 		this.setVisible(true);
+		
+		loadScore();
+		
 		this.addWindowListener(new WindowAdapter() {
 
 			@Override
@@ -75,6 +78,7 @@ private void loadScore() {
 					sb.append(++cnt);
 					sb.append(". ");
 					sb.append(rank.getUserName());
+					sb.append(" ");
 					sb.append(rank.getScore());
 					sb.append(" ");
 					sb.append(rank.getDate());

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.datatransfer.SystemFlavorMap;
@@ -27,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -44,7 +46,7 @@ public class VenechiaFrame extends JFrame {
    JButton go_bt;
    JTextField id_tf;
    
-   JPanel p2, sou_p, nor_p, nor_p2, center_p;
+   JPanel p2, sou_p, nor_p, nor_p2, center_p, back_p;
    JTextField input;
    JButton start_bt;
    JLabel score_lb = new JLabel();
@@ -63,9 +65,12 @@ public class VenechiaFrame extends JFrame {
    
    ArrayList<Ranking> r_list = new ArrayList<Ranking>();
    String userName;
+   Image back_img;
    
    public VenechiaFrame() {
-      
+
+	back_img = new ImageIcon("/Users/yura/eclipse-workspace/venechiacard2.jpeg").getImage();
+	   
    //p1셋팅 
    p1 = new JPanel(new BorderLayout());
    cen_p = new JPanel() {
@@ -94,38 +99,40 @@ public class VenechiaFrame extends JFrame {
    p1.add(cen_p, BorderLayout.CENTER);
    p1.add(subp, BorderLayout.SOUTH);
 
-   //p1셋팅 끝
+   //p1셋팅 끝   
    
-   //p2 = new JPanel(new BorderLayout());
+
+
    
    //center_p 셋팅
    center_p = new JPanel(new BorderLayout()) {
 
 	@Override
-	public void paint(Graphics g) {
-		
+	public void paintComponent(Graphics g) {
+	
 		Image img = createImage(this.getSize().width, this.getSize().height);
 		Graphics img_g = img.getGraphics();
 		
 		Iterator<WordVO> it = list.iterator();
 		while(it.hasNext()) {
 			WordVO vo = it.next();
-			
 			img_g.setColor(vo.c);
 			img_g.drawString(vo.str, vo.x, vo.y);
 		}
-		
+	
 		g.drawImage(img, 0, 0, this);
+		
 	}
 	 
 	 
    };
    
    
+   
    JPanel north_p2 = new JPanel(new GridLayout(1, 2));
    
    p2 = new JPanel(new BorderLayout());
-   
+   ImageIcon start = new ImageIcon("/Users/yura/eclipse-workspace/start.jpeg");
    sou_p = new JPanel();
    sou_p.add(new JLabel("입력: "));
    sou_p.add(input = new JTextField(10));
@@ -133,7 +140,7 @@ public class VenechiaFrame extends JFrame {
    p2.add(sou_p, BorderLayout.SOUTH);
    
    nor_p = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-   nor_p.add(start_bt = new JButton("START!"));
+   nor_p.add(start_bt = new JButton(start));
    
    nor_p2 = new JPanel(new FlowLayout(FlowLayout.LEFT));
    nor_p2.add(score_lb);
@@ -147,8 +154,15 @@ public class VenechiaFrame extends JFrame {
    
    p2.add(north_p2, BorderLayout.NORTH);
    
-   p2.add(center_p);  
+   p2.add(center_p);
+   
+ 
+   
+   
+
    //p2 셋팅 끝
+   
+
    
    bar = new JMenuBar();
    file_m = new JMenu("파일");
@@ -158,7 +172,7 @@ public class VenechiaFrame extends JFrame {
    
    this.setJMenuBar(bar);
 
-   JPanel card = new JPanel(new CardLayout());
+   JPanel card = new JPanel();
    this.setLayout(cl = new CardLayout());
    this.getContentPane().add(card);
    card.setLayout(cl);
@@ -227,6 +241,7 @@ public class VenechiaFrame extends JFrame {
 						
 						int idx = (int)(Math.random()*ar.length);
 						String str = ar[idx];
+						
 						
 						WordVO vo = new WordVO(str, VenechiaFrame.this);
 						
@@ -404,7 +419,7 @@ public class VenechiaFrame extends JFrame {
 	   
    }
    
- 
+   
 
    public static void main(String[] args) {
       //프로그램 시작
